@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Châm ✨ 20/10 Rực Rỡ</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d001a, #2a0845, #16002c);
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* Nút bắt đầu mở thiệp */
+        .open-btn {
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 30px rgba(255, 65, 108, 0.8);
+        }
+
+        /* Khung Thiệp */
+        .card {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            padding: 40px 30px;
+            border-radius: 28px;
+            text-align: center;
+            max-width: 460px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(233, 30, 99, 0.3);
+            z-index: 10;
+            animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #ff75a0;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(255, 117, 160, 0.6);
+        }
+
+        .name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff3366;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.8);
+            display: inline-block;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        .message-box {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #fce4ec;
+            min-height: 120px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 4px solid #ff416c;
+        }
+
+        .decor-icons {
+            font-size: 2.2rem;
+            margin-top: 20px;
+        }
+
+        /* Hiệu ứng rơi */
+        .falling {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nút bấm mở quà -->
+    <button class="open-btn" id="openBtn">🎁 Mở thư gửi Châm 💕</button>
+
+    <!-- Thẻ thiệp chúc mừng -->
+    <div class="card" id="mainCard">
+        <div class="title">Happy Women's Day</div>
+        <div class="name">Gửi Châm ❤️</div>
+        <div class="message-box" id="typingText"></div>
+        <div class="decor-icons">🌸 ✨ 🌷 💖 🌺</div>
+    </div>
+
+    <!-- Nhạc nền nhẹ nhàng lãng mạn -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-sunshine-1048.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const openBtn = document.getElementById('openBtn');
+        const mainCard = document.getElementById('mainCard');
+        const bgMusic = document.getElementById('bgMusic');
+        const typingText = document.getElementById('typingText');
+
+        // Lời chúc gửi Châm
+        const textContent = "Chúc Châm có một ngày 20/10 thật ngập tràn niềm vui, xinh đẹp và rạng rỡ! 🌸\n\nMong rằng mọi dự định của Châm đều thành công, luôn giữ nụ cười trên môi và mỗi ngày trôi qua đều là một ngày hạnh phúc ngọt ngào nhé! ✨💖";
+
+        // Mở thiệp
+        openBtn.addEventListener('click', () => {
+            openBtn.style.display = 'none';
+            mainCard.style.display = 'block';
+            
+            // Phát nhạc
+            bgMusic.play().catch(() => console.log("Audio play blocked"));
+
+            // Chạy hiệu ứng gõ chữ
+            typeWriter(textContent, 0);
+
+            // Bắt đầu tạo hiệu ứng rơi
+            createFallingElements();
+        });
+
+        // Hiệu ứng gõ chữ từng ký tự
+        function typeWriter(text, i) {
+            if (i < text.length) {
+                if (text.charAt(i) === '\n') {
+                    typingText.innerHTML += '<br>';
+                } else {
+                    typingText.innerHTML += text.charAt(i);
+                }
+                setTimeout(() => typeWriter(text, i + 1), 40);
+            }
+        }
+
+        // Tạo hiệu ứng hoa & trái tim rơi
+        function createFallingElements() {
+            const symbols = ['🌸', '💖', '✨', '🌷', '💕', '🌺', '⭐'];
+            setInterval(() => {
+                let el = document.createElement('div');
+                el.classList.add('falling');
+                el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = Math.random() * 3 + 4 + 's';
+                el.style.fontSize = Math.random() * 15 + 15 + 'px';
+                document.body.appendChild(el);
+
+                // Tự xóa bớt hạt rơi sau khi chạy xong
+                setTimeout(() => {
+                    el.remove();
+                }, 7000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
